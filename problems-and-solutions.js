@@ -1,16 +1,22 @@
-import ProblemInterface from "./problems-interface.js";
+import { Problem, ProblemInterface } from "./problems-interface.js";
 
 // Add problems containers:
 const body = document.body;
 const homework = new ProblemInterface(body, "Homework");
 const extra = new ProblemInterface(body, "Extra");
 
-// Solve and add problem(s) to container(s).
+// helper function:
+function addProblem(container, data, solution) {
+  const problem = new Problem(data, solution);
+  container.addProblemElement(problem.problemElement);
+  return problem;
+}
 
 // -----------------------------------------------------------------------------
 // Homework --------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-const hw1 = {
+
+const dataHw1 = {
   id: "hw1",
   problemText: "Sum of Elements: Write a program that calculates  the sum of all elements in an array of numbers.",
   inputs: ["List of numbers separated by ','"],
@@ -18,17 +24,20 @@ const hw1 = {
 
 function solveHw1(arr) {}
 
-homework.addProblem(hw1, solveHw1);
+const hwProblemObject1 = addProblem(homework, dataHw1, solveHw1);
+hwProblemObject1.setBackgroundColor("pink");
 
-//-----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Extra (GeeksforGeeks patterns) ----------------------------------------------
+// -----------------------------------------------------------------------------
 
-const problem6 = {
-  id: "6",
+const dataEx6 = {
+  id: "ex6",
   problemText: "Pascal's Triangle",
   inputs: ["Enter a positive integer"],
 };
 
-function solveProblem6(n) {
+function solveEx6(n) {
   n = Number(n);
   if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
 
@@ -52,22 +61,20 @@ function solveProblem6(n) {
     result.push(line);
   }
   result = result.join("\r\n");
-
   return result;
 }
 
-extra.addProblem(problem6, solveProblem6);
+addProblem(extra, dataEx6, solveEx6);
 
-// -----------------------------------------------------------------------------
-// Extra (GeeksforGeeks patterns) ----------------------------------------------
-// -----------------------------------------------------------------------------
-const problem5 = {
-  id: "5",
+//-----------------------------------------------------------------------------
+
+const dataEx5 = {
+  id: "ex5",
   problemText: "Number Triangular",
   inputs: ["Enter a positive integer"],
 };
 
-function solveProblem5(n) {
+function solveEx5(n) {
   n = Number(n);
   if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
 
@@ -82,17 +89,17 @@ function solveProblem5(n) {
   return result;
 }
 
-extra.addProblem(problem5, solveProblem5);
+addProblem(extra, dataEx5, solveEx5);
 
 //-----------------------------------------------------------------------------
 
-const problem4 = {
-  id: "4",
+const dataEx4 = {
+  id: "ex4",
   problemText: "Reverse Number Triangle Pattern",
   inputs: ["Enter a positive integer"],
 };
 
-function solveProblem4(n) {
+function solveEx4(n) {
   n = Number(n);
   if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
 
@@ -104,21 +111,20 @@ function solveProblem4(n) {
     }
     result += "\r\n";
   }
-
   return result;
 }
 
-extra.addProblem(problem4, solveProblem4);
+addProblem(extra, dataEx4, solveEx4);
 
 //-----------------------------------------------------------------------------
 
-const problem3 = {
-  id: "3",
+const dataEx3 = {
+  id: "ex3",
   problemText: "Right Pascal's Triangle",
   inputs: ["Enter a positive integer"],
 };
 
-function solveProblem3(n) {
+function solveEx3(n) {
   n = Number(n);
   if (!Number.isInteger(n) || n <= 0) return "Please enter a positive integer.";
 
@@ -133,21 +139,20 @@ function solveProblem3(n) {
     }
     result += "\r\n";
   }
-
   return result;
 }
 
-extra.addProblem(problem3, solveProblem3);
+addProblem(extra, dataEx3, solveEx3);
 
 //-----------------------------------------------------------------------------
 
-const problem2 = {
-  id: "2",
+const dataEx2 = {
+  id: "ex2",
   problemText: "Butterfly star pattern",
   inputs: ["Enter a positive number"],
 };
 
-function solveProblem2(n) {
+function solveEx2(n) {
   n = Number(n);
   if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
   let result = "";
@@ -166,16 +171,16 @@ function solveProblem2(n) {
   return result;
 }
 
-extra.addProblem(problem2, solveProblem2);
+addProblem(extra, dataEx2, solveEx2);
 
 // --------------------------------------------------
-const problem1 = {
-  id: "1",
+const dataEx1 = {
+  id: "ex1",
   problemText: "Check if a string is a palindrome",
   inputs: ["String"],
 };
 
-function solveProblem1(str) {
+function solveEx1(str) {
   if (!str) {
     return "Please enter a string.";
   }
@@ -190,4 +195,5 @@ function solveProblem1(str) {
   }
   return result;
 }
-extra.addProblem(problem1, solveProblem1);
+const extraProblemObject1 = addProblem(extra, dataEx1, solveEx1);
+extraProblemObject1.setBackgroundColor("pink");

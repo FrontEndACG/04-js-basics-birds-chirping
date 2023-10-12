@@ -1,4 +1,4 @@
-export default class ProblemInterface {
+class ProblemInterface {
   constructor(parentContainer, title) {
     this.parentContainer = parentContainer;
     this.title = title;
@@ -38,8 +38,7 @@ export default class ProblemInterface {
     return header;
   }
 
-  addProblem(problem, solution) {
-    const problemElement = new Problem(problem, solution).createProblemElement();
+  addProblemElement(problemElement) {
     this.problemsContainer.appendChild(problemElement);
     if (this.activeProblem === null) {
       this.activeProblem = problemElement;
@@ -76,6 +75,7 @@ export default class ProblemInterface {
   }
 
   focusProblem(problem) {
+    if (!problem.classList) return;
     if (problem.classList == "problem-wrapper") {
       if (this.activeProblem != null) {
         this.activeProblem.classList.remove("selected-problem");
@@ -90,44 +90,46 @@ class Problem {
   constructor(problem, callback) {
     this.problem = problem;
     this.callback = callback;
-    // this.problemInterface = this.createProblemElement();
+    this.problemElement = this.createProblemElement();
   }
 
   createProblemElement() {
     this.problemInputs = [];
-    const problemElement = document.createElement("div");
-    problemElement.classList.add("problem-wrapper");
+    this.problemElement = document.createElement("div");
+    this.problemElement.classList.add("problem-wrapper");
 
     const problemTextContainer = document.createElement("div");
     problemTextContainer.textContent = this.problem.problemText;
     problemTextContainer.classList.add("problem-text");
-    problemElement.appendChild(problemTextContainer);
+    this.problemElement.appendChild(problemTextContainer);
 
     this.problem.inputs.forEach((input, index) => {
       const inputElement = document.createElement("input");
       inputElement.setAttribute("id", `${this.problem.id}_${index}`);
       inputElement.setAttribute("placeholder", `${input}`);
       this.problemInputs.push(inputElement);
-      problemElement.appendChild(inputElement);
+      this.problemElement.appendChild(inputElement);
     });
 
     const resultBtn = document.createElement("button");
     resultBtn.textContent = "Result";
     resultBtn.classList.add("result-btn");
-    problemElement.appendChild(resultBtn);
+    this.problemElement.appendChild(resultBtn);
 
     const output = document.createElement("div");
     output.classList.add("output");
-    problemElement.appendChild(output);
+    this.problemElement.appendChild(output);
 
     resultBtn.addEventListener("click", () => {
       output.textContent = this.callback(...this.problemInputs.map((input) => input.value));
     });
 
-    return problemElement;
+    return this.problemElement;
   }
 
-  // setBackgroundColor(color) {
-  //   this.problemInterface.style.backgroundColor = color;
-  // }
+  setBackgroundColor(color) {
+    this.problemElement.style.backgroundColor = color;
+  }
 }
+
+export { Problem, ProblemInterface };
