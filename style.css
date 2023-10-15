@@ -51,15 +51,15 @@ body {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.429);
   transition: transform 0.2s;
 }
-.switch.selected:hover::before,
-.switch:hover::before {
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
 .switch.selected::before {
   background-color: white;
   transform: translateX(85%);
   transition: transform 0.2s;
+}
+
+.switch:hover::before,
+.switch.selected:hover::before {
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .problems-container {
@@ -142,30 +142,32 @@ input:focus {
 .result-btn:hover {
   background-color: rgb(255, 249, 159);
 }
-
 .result-btn:active {
   background-color: mediumaquamarine;
 }
 
 .output {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  font-family: monospace;
-  font-weight: bolder;
   font-size: 1rem;
   min-height: 15rem;
   max-height: 30rem;
   height: fit-content;
-  white-space: pre;
   overflow: auto;
   padding: 0.5rem;
   background-color: white;
   border-radius: 7px;
 }
 
-.nowrap {
-  text-wrap: nowrap;
+.pre {
+  white-space: pre;
+}
+
+.output-content {
+  margin: 0 auto;
+  font-weight: bolder;
+  font-family: monospace;
+  /* white-space: pre; */
 }
 
 @media (pointer: fine) {

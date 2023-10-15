@@ -120,13 +120,24 @@ class Problem {
     output.classList.add("output");
     this.problemElement.appendChild(output);
 
+    const outputContent = document.createElement("div");
+    outputContent.classList.add("output-content");
+    output.appendChild(outputContent);
+
     resultBtn.addEventListener("click", () => {
-      output.textContent = this.callback(...this.problemInputs.map((input) => input.value));
+      outputContent.textContent = this.callback(...this.problemInputs.map((input) => input.value));
     });
 
     return this.problemElement;
   }
 
+  preserveWhitespace() {
+    this.problemElement.querySelector(".output-content").classList.add("pre");
+  }
+
+  collapseWhitespace() {
+    this.problemElement.querySelector(".output-content").classList.remove("pre");
+  }
   setBackgroundColor(color) {
     this.problemElement.style.backgroundColor = color;
   }
