@@ -43,10 +43,7 @@ const sumOfElements = {
   },
 };
 
-const sumOfElementsProblemObject = addProblem(homework, sumOfElements.data, sumOfElements.solve);
-sumOfElementsProblemObject.setBackgroundColor("pink");
-
-// -----------------------------------------------------------------------------
+addProblem(homework, sumOfElements.data, sumOfElements.solve);
 
 const averageOfElements = {
   data: {
@@ -74,7 +71,6 @@ const averageOfElements = {
 
 addProblem(homework, averageOfElements.data, averageOfElements.solve);
 
-// -----------------------------------------------------------------------------
 const minMax = {
   data: {
     id: setID(),
@@ -100,9 +96,7 @@ const minMax = {
     return `Smallest: ${min}\r\nLargest: ${max}`;
   },
 };
-addProblem(homework, minMax.data, minMax.solve);
-
-// -----------------------------------------------------------------------------
+addProblem(homework, minMax.data, minMax.solve).setBackgroundColor("mediumorchid");
 
 const reverseArray = {
   data: {
@@ -124,8 +118,6 @@ const reverseArray = {
 };
 
 addProblem(homework, reverseArray.data, reverseArray.solve);
-
-// -----------------------------------------------------------------------------
 
 const searchElement = {
   data: {
@@ -161,8 +153,6 @@ const searchElement = {
 };
 
 addProblem(homework, searchElement.data, searchElement.solve);
-
-// -----------------------------------------------------------------------------
 
 const searchType = {
   data: {
@@ -213,8 +203,6 @@ const searchType = {
 
 const searchTypeProblemObject = addProblem(homework, searchType.data, searchType.solve);
 
-// -----------------------------------------------------------------------------
-
 const isPalindrome = {
   data: {
     id: setID(),
@@ -241,10 +229,7 @@ const isPalindrome = {
   },
 };
 
-const palindromeProblemObject = addProblem(homework, isPalindrome.data, isPalindrome.solve);
-palindromeProblemObject.setBackgroundColor("mediumorchid");
-
-// -----------------------------------------------------------------------------
+addProblem(homework, isPalindrome.data, isPalindrome.solve).setBackgroundColor("mediumorchid");
 
 const reverseString = {
   data: {
@@ -269,8 +254,6 @@ const reverseString = {
 
 addProblem(homework, reverseString.data, reverseString.solve);
 
-// -----------------------------------------------------------------------------
-
 const removeWhitespace = {
   data: {
     id: setID(),
@@ -291,8 +274,6 @@ const removeWhitespace = {
 };
 
 addProblem(homework, removeWhitespace.data, removeWhitespace.solve);
-
-// -----------------------------------------------------------------------------
 
 const findSubstring = {
   data: {
@@ -326,8 +307,6 @@ const findSubstring = {
 };
 addProblem(homework, findSubstring.data, findSubstring.solve);
 
-// -----------------------------------------------------------------------------
-
 const multiplicationTable = {
   data: {
     id: setID(),
@@ -345,10 +324,7 @@ const multiplicationTable = {
     return `Multiplication table for number ${num} is: ${result}`;
   },
 };
-const multiplicationTableProblemObject = addProblem(homework, multiplicationTable.data, multiplicationTable.solve);
-multiplicationTableProblemObject.preserveWhitespace();
-
-// -----------------------------------------------------------------------------
+addProblem(homework, multiplicationTable.data, multiplicationTable.solve).preserveWhitespace();
 
 const primeNumbers = {
   data: {
@@ -358,16 +334,11 @@ const primeNumbers = {
   },
 
   isPrime: function (num) {
-    let steps = 0;
     let i = 2;
-    let lim = num;
-    while (i < lim) {
+    while (i <= Math.sqrt(num)) {
       if (num % i == 0) return false;
-      lim = num / i;
       i++;
-      steps++;
     }
-    console.log(steps);
     return true;
   },
 
@@ -379,13 +350,11 @@ const primeNumbers = {
     for (let i = 3; i < num; i += 2) {
       if (primeNumbers.isPrime(i)) result.push(i);
     }
-    console.log(result.length);
+    // console.log(result.length);
     return `Prime numbers up to ${num}: ${result.join(", ")}`;
   },
 };
 addProblem(homework, primeNumbers.data, primeNumbers.solve);
-
-// -----------------------------------------------------------------------------
 
 const firstNFibonacci = {
   data: {
@@ -415,149 +384,154 @@ addProblem(homework, firstNFibonacci.data, firstNFibonacci.solve);
 // Extra (GeeksforGeeks patterns) ----------------------------------------------
 // -----------------------------------------------------------------------------
 
-const dataEx6 = {
-  id: "ex6",
-  problemText: "Pascal's Triangle",
-  inputs: ["Enter a positive integer"],
-};
+const pascalsTriangle = {
+  data: {
+    id: setID(),
+    problemText: "Pascal's Triangle",
+    inputs: ["Enter a positive integer"],
+  },
 
-function solveEx6(n) {
-  n = Number(n);
-  if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
 
-  let result = [];
-  let previousLine = null;
+    let result = [];
+    let previousLine = null;
 
-  for (let i = 0; i < n; i++) {
-    let line = [];
-    if (!previousLine) {
-      line.push(1);
-      previousLine = line;
-    } else {
-      line.push(1);
-      for (let j = 0; j < i - 1; j++) {
-        line.push(previousLine[j] + previousLine[j + 1]);
-      }
-      line.push(1);
-      previousLine = line;
-    }
-    line = "  ".repeat(n - i - 1) + line.map((n) => String(n).padEnd(3, " ")).join(" ");
-    result.push(line);
-  }
-  result = result.join("\r\n");
-  return result;
-}
-
-const pascalsTriangle = addProblem(extra, dataEx6, solveEx6);
-pascalsTriangle.preserveWhitespace();
-
-//-----------------------------------------------------------------------------
-
-const dataEx5 = {
-  id: "ex5",
-  problemText: "Number Triangular",
-  inputs: ["Enter a positive integer"],
-};
-
-function solveEx5(n) {
-  n = Number(n);
-  if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
-
-  let result = "";
-  for (let i = 1; i <= n; i++) {
-    result += " ".repeat(n - i);
-    for (let j = 1; j <= i; j++) {
-      result += i + " ";
-    }
-    result += "\r\n";
-  }
-  return result;
-}
-
-const numberTriangular = addProblem(extra, dataEx5, solveEx5);
-numberTriangular.preserveWhitespace();
-
-//-----------------------------------------------------------------------------
-
-const dataEx4 = {
-  id: "ex4",
-  problemText: "Reverse Number Triangle Pattern",
-  inputs: ["Enter a positive integer"],
-};
-
-function solveEx4(n) {
-  n = Number(n);
-  if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
-
-  let result = "";
-  for (let i = 1; i <= n; i++) {
-    result += " ".repeat(i - 1);
-    for (let j = i; j <= n; j++) {
-      result += j + " ";
-    }
-    result += "\r\n";
-  }
-  return result;
-}
-
-const reverseNumber = addProblem(extra, dataEx4, solveEx4);
-reverseNumber.preserveWhitespace();
-
-//-----------------------------------------------------------------------------
-
-const dataEx3 = {
-  id: "ex3",
-  problemText: "Right Pascal's Triangle",
-  inputs: ["Enter a positive integer"],
-};
-
-function solveEx3(n) {
-  n = Number(n);
-  if (!Number.isInteger(n) || n <= 0) return "Please enter a positive integer.";
-
-  let result = "";
-  for (let i = 0; i < n * 2 - 1; i++) {
-    for (let j = 0; j < n; j++) {
-      if (i % 2 == j % 2 && i >= j && i + j < n * 2) {
-        result += "⚫";
+    for (let i = 0; i < n; i++) {
+      let line = [];
+      if (!previousLine) {
+        line.push(1);
+        previousLine = line;
       } else {
-        result += "⚪";
+        line.push(1);
+        for (let j = 0; j < i - 1; j++) {
+          line.push(previousLine[j] + previousLine[j + 1]);
+        }
+        line.push(1);
+        previousLine = line;
       }
+      line = "  ".repeat(n - i - 1) + line.map((n) => String(n).padEnd(3, " ")).join(" ");
+      result.push(line);
     }
-    result += "\r\n";
-  }
-  return result;
-}
+    result = result.join("\r\n");
+    return result;
+  },
+};
 
-const rightPascal = addProblem(extra, dataEx3, solveEx3);
-rightPascal.preserveWhitespace();
+addProblem(extra, pascalsTriangle.data, pascalsTriangle.solve).preserveWhitespace();
 
 //-----------------------------------------------------------------------------
 
-const dataEx2 = {
-  id: "ex2",
-  problemText: "Butterfly star pattern",
-  inputs: ["Enter a positive number"],
+const numberTriangular = {
+  data: {
+    id: setID(),
+    problemText: "Number Triangular",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = "";
+    for (let i = 1; i <= n; i++) {
+      result += " ".repeat(n - i);
+      for (let j = 1; j <= i; j++) {
+        result += i + " ";
+      }
+      result += "\r\n";
+    }
+    return result;
+  },
 };
 
-function solveEx2(n) {
-  n = Number(n);
-  if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
-  let result = "";
+addProblem(extra, numberTriangular.data, numberTriangular.solve).preserveWhitespace();
 
-  for (let i = 0; i < n * 2 - 1; i++) {
-    for (let j = 0; j < n * 2 - 1; j++) {
-      if (i % 2 == j % 2 && ((i >= j && i + j < n * 2) || (i <= j && i + j >= n * 2 - 2))) {
-        result += " * ";
-        // result += `${i}${j}`;
-      } else {
-        result += "   ";
+//-----------------------------------------------------------------------------
+
+const reverseNumberTriangle = {
+  data: {
+    id: setID(),
+    problemText: "Reverse Number Triangle Pattern",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = "";
+    for (let i = 1; i <= n; i++) {
+      result += " ".repeat(i - 1);
+      for (let j = i; j <= n; j++) {
+        result += j + " ";
       }
+      result += "\r\n";
     }
-    result += "\r\n";
-  }
-  return result;
-}
+    return result;
+  },
+};
 
-const butterfly = addProblem(extra, dataEx2, solveEx2);
-butterfly.preserveWhitespace();
+addProblem(extra, reverseNumberTriangle.data, reverseNumberTriangle.solve).preserveWhitespace();
+
+//-----------------------------------------------------------------------------
+
+const rightPascal = {
+  data: {
+    id: setID(),
+    problemText: "Right Pascal's Triangle",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter a positive integer.";
+
+    let result = "";
+    for (let i = 0; i < n * 2 - 1; i++) {
+      for (let j = 0; j < n; j++) {
+        if (i % 2 == j % 2 && i >= j && i + j < n * 2) {
+          result += "⚫";
+        } else {
+          result += "⚪";
+        }
+      }
+      result += "\r\n";
+    }
+    return result;
+  },
+};
+
+addProblem(extra, rightPascal.data, rightPascal.solve).preserveWhitespace();
+
+//-----------------------------------------------------------------------------
+
+const butterfly = {
+  data: {
+    id: setID(),
+    problemText: "Butterfly star pattern",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = "";
+
+    for (let i = 0; i < n * 2 - 1; i++) {
+      for (let j = 0; j < n * 2 - 1; j++) {
+        if (i % 2 == j % 2 && ((i >= j && i + j < n * 2) || (i <= j && i + j >= n * 2 - 2))) {
+          result += " * ";
+          // result += `${i}${j}`;
+        } else {
+          result += "   ";
+        }
+      }
+      result += "\r\n";
+    }
+    return result;
+  },
+};
+
+addProblem(extra, butterfly.data, butterfly.solve).preserveWhitespace();
