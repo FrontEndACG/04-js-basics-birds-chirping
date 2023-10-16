@@ -418,10 +418,201 @@ const pascalsTriangle = {
     return result;
   },
 };
-
 addProblem(extra, pascalsTriangle.data, pascalsTriangle.solve).preserveWhitespace();
 
-//-----------------------------------------------------------------------------
+const palindromeTriangular = {
+  data: {
+    id: setID(),
+    problemText: "Palindrome Triangular",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = [];
+    let val = 1;
+
+    for (let i = 0; i <= n - 1; i++) {
+      let row = [];
+      for (let j = 0; j <= 2 * i; j++) {
+        row.push(val);
+        if (j < i) {
+          val--;
+        } else {
+          val++;
+        }
+      }
+      result.push(row.join(" ").padStart(2 * (n + i)));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, palindromeTriangular.data, palindromeTriangular.solve).preserveWhitespace();
+
+const mirrorImageTriangle = {
+  data: {
+    id: setID(),
+    problemText: "Mirror Image  Triangle",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = [];
+    let spacesCount = 0;
+    for (let i = 0; i <= 2 * (n - 1); i++) {
+      let row = "";
+      for (let j = 0; j <= n; j++) {
+        if (j > spacesCount) {
+          row += `${j}   `;
+        } else {
+          row += `  `;
+        }
+      }
+      result.push(row);
+      if (i < n - 1) spacesCount++;
+      if (i >= n - 1) spacesCount--;
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, mirrorImageTriangle.data, mirrorImageTriangle.solve).preserveWhitespace();
+
+const hollowHourglass = {
+  data: {
+    id: setID(),
+    problemText: "Hollow Hourglass Pattern",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = [];
+    let spacesCount = 0;
+    for (let i = 0; i <= 2 * (n - 1); i++) {
+      let row = "";
+      for (let j = 0; j <= n; j++) {
+        if (j > spacesCount) {
+          if (j == spacesCount + 1 || j == n || i == 0 || i == 2 * (n - 1)) {
+            row += `*   `;
+          } else row += "    ";
+        } else {
+          row += `  `;
+        }
+      }
+      result.push(row);
+      if (i < n - 1) spacesCount++;
+      if (i >= n - 1) spacesCount--;
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, hollowHourglass.data, hollowHourglass.solve).preserveWhitespace();
+
+const diamondPattern = {
+  data: {
+    id: setID(),
+    problemText: "Diamond Pattern",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = [];
+    let rowStarCount = 1;
+    for (let i = 0; i <= 2 * (n - 1); i++) {
+      // Variant 1 --------------
+      // let row = "";
+      // for (let j = n - 1; j >= 0; j--) {
+      //   if (j >= rowStarCount) {
+      //     row += "  ";
+      //   } else {
+      //     row += "*   ";
+      //   }
+      // }
+      // result.push(row);
+
+      // Variant 2 ---------------
+      let row = [];
+      for (let j = 0; j < rowStarCount; j++) {
+        row.push(`*`);
+      }
+      result.push(row.join("   ").padStart(2 * (n + rowStarCount) - 3));
+      // -------------------------
+
+      if (i < n - 1) rowStarCount++;
+      if (i >= n - 1) rowStarCount--;
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, diamondPattern.data, diamondPattern.solve).preserveWhitespace();
+
+const hollowDiamond = {
+  data: {
+    id: setID(),
+    problemText: "Hollow Diamond Pyramid",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = [];
+    let rowStarCount = 1;
+    for (let i = 0; i <= 2 * (n - 1); i++) {
+      let row = [];
+      for (let j = 0; j < rowStarCount; j++) {
+        if (j == 0 || j == rowStarCount - 1) {
+          row.push(`*`);
+        } else {
+          row.push(" ");
+        }
+      }
+      result.push(row.join("   ").padStart(2 * (n + rowStarCount) - 3));
+      if (i < n - 1) rowStarCount++;
+      if (i >= n - 1) rowStarCount--;
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, hollowDiamond.data, hollowDiamond.solve).preserveWhitespace();
+
+const kPattern = {
+  data: {
+    id: setID(),
+    problemText: "K Pattern",
+    inputs: ["Enter a positive integer"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0 || n >= 10) return "Please enter a positive integer smaller than 10.";
+
+    let result = [];
+    let lim = n;
+    for (let i = 0; i <= 2 * (n - 1); i++) {
+      let row = [];
+      for (let j = 0; j < lim; j++) {
+        row.push(`*`);
+      }
+      if (i < n - 1) lim--;
+      if (i >= n - 1) lim++;
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, kPattern.data, kPattern.solve).preserveWhitespace();
 
 const numberTriangular = {
   data: {
@@ -445,10 +636,7 @@ const numberTriangular = {
     return result;
   },
 };
-
 addProblem(extra, numberTriangular.data, numberTriangular.solve).preserveWhitespace();
-
-//-----------------------------------------------------------------------------
 
 const reverseNumberTriangle = {
   data: {
@@ -472,10 +660,7 @@ const reverseNumberTriangle = {
     return result;
   },
 };
-
 addProblem(extra, reverseNumberTriangle.data, reverseNumberTriangle.solve).preserveWhitespace();
-
-//-----------------------------------------------------------------------------
 
 const rightPascal = {
   data: {
@@ -492,9 +677,9 @@ const rightPascal = {
     for (let i = 0; i < n * 2 - 1; i++) {
       for (let j = 0; j < n; j++) {
         if (i % 2 == j % 2 && i >= j && i + j < n * 2) {
-          result += "⚫";
+          result += " * ";
         } else {
-          result += "⚪";
+          result += "   ";
         }
       }
       result += "\r\n";
@@ -502,10 +687,7 @@ const rightPascal = {
     return result;
   },
 };
-
 addProblem(extra, rightPascal.data, rightPascal.solve).preserveWhitespace();
-
-//-----------------------------------------------------------------------------
 
 const butterfly = {
   data: {
@@ -533,5 +715,31 @@ const butterfly = {
     return result;
   },
 };
-
 addProblem(extra, butterfly.data, butterfly.solve).preserveWhitespace();
+
+const rhombusPattern = {
+  data: {
+    id: setID(),
+    problemText: "Rhombus Pattern",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    let firstRow = "";
+    for (let i = 0; i <= n - 1; i++) {
+      firstRow += `* `;
+    }
+    result.push(firstRow);
+
+    for (let i = 0; i <= n - 1; i++) {
+      firstRow = " " + firstRow;
+      result.push(firstRow);
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, rhombusPattern.data, rhombusPattern.solve).preserveWhitespace();

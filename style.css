@@ -90,7 +90,7 @@ body {
 .problem-wrapper > * {
   box-shadow: 1px 1px 5px rgba(49, 49, 50, 0.3);
   opacity: 0.98;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .selected-problem,
