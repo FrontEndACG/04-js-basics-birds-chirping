@@ -808,7 +808,7 @@ const numberChangingPyramid = {
     for (let i = 1; i <= n; i++) {
       let row = [];
       for (let j = 1; j <= i; j++) {
-        row.push(++val);
+        row.push(`${++val}`.padEnd(3));
       }
       result.push(row.join(" "));
     }

@@ -27,15 +27,13 @@
 }
 
 .switch {
-  /* min-width: 5.5rem;
-    height: 3rem; */
   min-width: 3.7rem;
   height: 2rem;
   border-radius: 2rem;
   background-color: rgba(255, 255, 255, 0.5);
   transition: background-color 0.2s;
 }
-.switch.selected {
+.switch.on {
   background-color: mediumaquamarine;
   transition: background-color 0.2s;
 }
@@ -50,14 +48,14 @@
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.429);
   transition: transform 0.2s;
 }
-.switch.selected::before {
+.switch.on::before {
   background-color: white;
   transform: translateX(85%);
   transition: transform 0.2s;
 }
 
 .switch:hover::before,
-.switch.selected:hover::before {
+.switch.on:hover::before {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
@@ -82,20 +80,21 @@
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: mediumpurple;
-
   opacity: 0.3;
 }
 
 .problem-wrapper > * {
   box-shadow: 1px 1px 5px rgba(49, 49, 50, 0.3);
   opacity: 0.98;
-  /* pointer-events: none; */
 }
 
 .selected-problem,
 .selected-problem > * {
   opacity: unset;
-  /* pointer-events: all; */
+}
+
+.focus {
+  box-shadow: 1px 1px 10px rgba(47, 47, 42, 0.65);
 }
 
 .problem-text {
@@ -166,7 +165,6 @@ input:focus {
   margin: 0 auto;
   font-weight: bolder;
   font-family: monospace;
-  /* white-space: pre; */
 }
 
 @media (pointer: fine) {

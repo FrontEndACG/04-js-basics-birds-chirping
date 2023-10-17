@@ -5,7 +5,7 @@ class ProblemInterface {
     this.problemsContainer;
     this.opacitySwitch;
     this.activeProblem = null;
-    this.showAllProblemsHandler = this.showAllProblems.bind(this);
+    this.toggleOpacityHandler = this.toggleOpacity.bind(this);
     this.changeFocusHandler = this.changeFocus.bind(this);
     this.createProblemsContainer();
   }
@@ -32,7 +32,7 @@ class ProblemInterface {
 
     this.opacitySwitch = document.createElement("div");
     this.opacitySwitch.classList.add("switch");
-    this.opacitySwitch.addEventListener("click", this.showAllProblemsHandler);
+    this.opacitySwitch.addEventListener("click", this.toggleOpacityHandler);
     header.appendChild(this.opacitySwitch);
 
     return header;
@@ -46,24 +46,42 @@ class ProblemInterface {
     }
   }
 
-  showAllProblems() {
-    const problems = [...this.problemsContainer.children];
-    const state = this.problemsContainer.getAttribute("data-showall");
+  getAllProblems() {
+    return [...this.problemsContainer.children];
+  }
 
-    if (!state || state === "false") {
-      problems.forEach((p) => {
-        p.classList.add("selected-problem");
-      });
-      this.opacitySwitch.classList.add("selected");
-      this.problemsContainer.setAttribute("data-showall", "true");
+  toggleOpacity() {
+    const showAllAttr = this.problemsContainer.getAttribute("data-showall");
+    if (!showAllAttr || showAllAttr === "false") {
+      this.showAllProblems();
     } else {
-      problems.forEach((p) => {
-        p.classList.remove("selected-problem");
-      });
-      this.focusProblem(this.activeProblem);
-      this.opacitySwitch.classList.remove("selected");
-      this.problemsContainer.setAttribute("data-showall", "false");
+      this.hideProblems();
     }
+  }
+
+  hideProblems() {
+    if (this.activeProblem == null) return;
+
+    const problems = this.getAllProblems();
+    problems.forEach((p) => {
+      p.classList.remove("selected-problem");
+    });
+    this.focusProblem(this.activeProblem);
+    this.activeProblem.classList.remove("focus");
+    this.opacitySwitch.classList.remove("on");
+    this.problemsContainer.setAttribute("data-showall", "false");
+  }
+
+  showAllProblems() {
+    if (this.activeProblem == null) return;
+
+    const problems = this.getAllProblems();
+    problems.forEach((p) => {
+      p.classList.add("selected-problem");
+    });
+    this.activeProblem.classList.add("focus");
+    this.opacitySwitch.classList.add("on");
+    this.problemsContainer.setAttribute("data-showall", "true");
   }
 
   changeFocus(e) {
@@ -76,11 +94,13 @@ class ProblemInterface {
 
   focusProblem(problem) {
     if (!problem.classList) return;
-    if (problem.classList == "problem-wrapper") {
-      if (this.activeProblem != null) {
-        this.activeProblem.classList.remove("selected-problem");
-      }
+    if (!problem.classList.contains("selected-problem")) {
+      this.activeProblem.classList.remove("selected-problem");
       problem.classList.add("selected-problem");
+    }
+    if (this.problemsContainer.getAttribute("data-showall") === "true") {
+      this.activeProblem.classList.remove("focus");
+      problem.classList.add("focus");
     }
     this.activeProblem = problem;
   }
