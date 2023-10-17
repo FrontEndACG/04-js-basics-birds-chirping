@@ -5,17 +5,16 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-body {
+.app {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem;
   background: linear-gradient(to bottom, rgba(102, 51, 153, 1) 11.2%, rgba(2, 0, 4, 1) 91.1%) fixed;
 }
 
 .header {
   width: 80%;
-  padding: 3rem 1rem 1rem;
+  padding: 3rem 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -96,7 +95,7 @@ body {
 .selected-problem,
 .selected-problem > * {
   opacity: unset;
-  pointer-events: all;
+  /* pointer-events: all; */
 }
 
 .problem-text {
@@ -173,5 +172,17 @@ input:focus {
 @media (pointer: fine) {
   .problem-wrapper:hover {
     opacity: unset;
+    box-shadow: 1px 1px 10px rgba(47, 47, 42, 0.65);
+  }
+}
+
+@media (pointer: coarse) {
+  .switch {
+    min-width: 2.6rem;
+    height: 1.4rem;
+  }
+
+  .switch::before {
+    padding: 0.7rem;
   }
 }

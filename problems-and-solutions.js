@@ -1,9 +1,9 @@
 import { Problem, ProblemInterface } from "./problems-interface.js";
 
 // Add problems containers:
-const body = document.body;
-const homework = new ProblemInterface(body, "Homework");
-const extra = new ProblemInterface(body, "Extra");
+const appContainer = document.querySelector(".app");
+const homework = new ProblemInterface(appContainer, "Homework");
+const extra = new ProblemInterface(appContainer, "Extra");
 
 // helper functions:
 function addProblem(container, data, solution) {
@@ -444,7 +444,7 @@ const palindromeTriangular = {
           val++;
         }
       }
-      result.push(row.join(" ").padStart(2 * (n + i)));
+      result.push(row.join(" ").padStart(2 * (n + i) - 1));
     }
     return result.join("\r\n");
   },
@@ -743,3 +743,199 @@ const rhombusPattern = {
   },
 };
 addProblem(extra, rhombusPattern.data, rhombusPattern.solve).preserveWhitespace();
+
+const numberIncreasingPyramid = {
+  data: {
+    id: setID(),
+    problemText: "Number Increasing Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= i; j++) {
+        row.push(j);
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, numberIncreasingPyramid.data, numberIncreasingPyramid.solve).preserveWhitespace();
+
+const numberIncreasingReversePyramid = {
+  data: {
+    id: setID(),
+    problemText: "Number Increasing Reverse Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= n - i + 1; j++) {
+        row.push(j);
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, numberIncreasingReversePyramid.data, numberIncreasingReversePyramid.solve).preserveWhitespace();
+
+const numberChangingPyramid = {
+  data: {
+    id: setID(),
+    problemText: "Number Changing Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    let val = 0;
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= i; j++) {
+        row.push(++val);
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, numberChangingPyramid.data, numberChangingPyramid.solve).preserveWhitespace();
+
+const zeroOneTriangle = {
+  data: {
+    id: setID(),
+    problemText: "Zero One Triangle",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    let val = 0;
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= i; j++) {
+        row.push(Number(j % 2 == i % 2));
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, zeroOneTriangle.data, zeroOneTriangle.solve).preserveWhitespace();
+
+const rightHalfPyramid = {
+  data: {
+    id: setID(),
+    problemText: "Right Half Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= i; j++) {
+        row.push("*");
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, rightHalfPyramid.data, rightHalfPyramid.solve).preserveWhitespace();
+
+const reverseRightHalfPyramid = {
+  data: {
+    id: setID(),
+    problemText: "Reverse Right Half Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= n - i + 1; j++) {
+        row.push("*");
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, reverseRightHalfPyramid.data, reverseRightHalfPyramid.solve).preserveWhitespace();
+
+const leftHalfPyramid = {
+  data: {
+    id: setID(),
+    problemText: "Left Half Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= n; j++) {
+        j > n - i ? row.push("*") : row.push(" ");
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, leftHalfPyramid.data, leftHalfPyramid.solve).preserveWhitespace();
+
+const reverseLeftHalfPyramid = {
+  data: {
+    id: setID(),
+    problemText: "Reverse Left Half Pyramid",
+    inputs: ["Enter a positive number"],
+  },
+
+  solve: function (n) {
+    n = Number(n);
+    if (!Number.isInteger(n) || n <= 0) return "Please enter \r\na positive integer.";
+    let result = [];
+
+    for (let i = 1; i <= n; i++) {
+      let row = [];
+      for (let j = 1; j <= n; j++) {
+        j >= i ? row.push("*") : row.push(" ");
+      }
+      result.push(row.join(" "));
+    }
+    return result.join("\r\n");
+  },
+};
+addProblem(extra, reverseLeftHalfPyramid.data, reverseLeftHalfPyramid.solve).preserveWhitespace();
+
+homework.showAllProblems();
